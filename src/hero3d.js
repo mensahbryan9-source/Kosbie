@@ -1,4 +1,4 @@
-// Scène 3D de l'accueil : un sac à main modelisé en code (aucun fichier 3D à télécharger),
+// Scène 3D de l'accueil : un sac à main modélisé en code (aucun fichier 3D à télécharger),
 // éclairé comme en vitrine, que l'on fait tourner du doigt ou de la souris.
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
@@ -125,7 +125,7 @@ function goldDust(count) {
   return points;
 }
 
-export function initHero(container, { reducedMotion = false } = {}) {
+export function initHero(container, { reducedMotion = false, ringImages = [] } = {}) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -171,7 +171,9 @@ export function initHero(container, { reducedMotion = false } = {}) {
   const pivot = new THREE.Group();
   const bag = buildBag(leather, leatherDark, gold);
   pivot.add(bag);
-  scene.add(pivot);
+  const display = new THREE.Group();
+  display.add(pivot);
+  scene.add(display);
 
   // Socle : disque sombre qui reçoit l'ombre.
   const plinth = new THREE.Mesh(
@@ -180,19 +182,48 @@ export function initHero(container, { reducedMotion = false } = {}) {
   );
   plinth.position.y = -1.12;
   plinth.receiveShadow = true;
-  scene.add(plinth);
+  display.add(plinth);
   const plinthEdge = new THREE.Mesh(new THREE.TorusGeometry(1.98, 0.012, 8, 128), gold);
   plinthEdge.rotation.x = Math.PI / 2;
   plinthEdge.position.y = -1.06;
-  scene.add(plinthEdge);
+  display.add(plinthEdge);
 
   const dust = goldDust(reducedMotion ? 60 : 180);
   scene.add(dust);
+
+  // Ronde de vrais sacs de la boutique : des photos détourées qui gravitent autour du sac 3D.
+  const ring = new THREE.Group();
+  scene.add(ring);
+  const loader = new THREE.TextureLoader();
+  const cards = ringImages.map((url, i) => {
+    const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, toneMapped: false });
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
+    mesh.userData.angle = (i / ringImages.length) * Math.PI * 2;
+    mesh.userData.lift = (i % 2 ? 0.55 : -0.25) + (i % 3) * 0.1;
+    mesh.visible = false;
+    loader.load(url, (tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      mat.map = tex;
+      mat.needsUpdate = true;
+      const ratio = tex.image.width / tex.image.height;
+      const h = ratio > 1 ? 1.45 / ratio : 1.45;
+      mesh.scale.set(h * ratio, h, 1);
+      mesh.userData.ready = true;
+    });
+    ring.add(mesh);
+    return mesh;
+  });
 
   // Couleur du cuir : transition douce vers la teinte choisie.
   const targetColor = new THREE.Color('#A8743F');
   function setColor(hex) {
     targetColor.set(hex);
+  }
+
+  // Défilement : la page envoie sa progression (0 → 1) et la scène se met en place.
+  let progress = 0;
+  function setProgress(p) {
+    progress = Math.min(1, Math.max(0, p));
   }
 
   // Interaction : glisser pour tourner, survol pour un léger parallaxe.
@@ -209,8 +240,8 @@ export function initHero(container, { reducedMotion = false } = {}) {
   });
   el.addEventListener('pointermove', (e) => {
     const r = el.getBoundingClientRect();
-    tilt.x = ((e.clientY - r.top) / r.height - 0.5) * 0.25;
-    tilt.y = ((e.clientX - r.left) / r.width - 0.5) * 0.25;
+    tilt.x = ((e.clientY - r.top) / r.height - 0.5) * 0.2;
+    tilt.y = ((e.clientX - r.left) / r.width - 0.5) * 0.2;
     if (!dragging) return;
     const dx = e.clientX - lastX;
     lastX = e.clientX;
@@ -222,18 +253,38 @@ export function initHero(container, { reducedMotion = false } = {}) {
   el.addEventListener('pointercancel', end);
   el.addEventListener('pointerleave', () => { tilt.x = 0; tilt.y = 0; });
 
+  let aspect = 1;
   function resize() {
     const { clientWidth: w, clientHeight: h } = container;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    // Sur écran étroit, on recule la caméra pour garder le sac entier.
-    camera.position.z = Math.max(8.6, 7 / (w / h));
+    aspect = w / h;
+    camera.aspect = aspect;
     camera.updateProjectionMatrix();
   }
   const ro = new ResizeObserver(resize);
   ro.observe(container);
   resize();
+
+  // Étapes du voyage : [progression, x du sac, y du sac, distance caméra, hauteur caméra, ronde visible, sac de face]
+  const mix = (a, b, t) => a + (b - a) * t;
+  const smooth = (t) => t * t * (3 - 2 * t);
+  function keyframes() {
+    const narrow = aspect < 1;
+    const z = narrow ? Math.max(9.5, 5.4 / aspect) : 8.6;
+    return narrow
+      ? [[0, 0, 1.95, z * 1.08, 0.6, 0, 0], [0.4, 0, 1.25, z * 0.6, 0.5, 0, 1], [0.74, 0, -1.3, z * 1.25, 0.9, 1, 0], [1, 0, -1.3, z * 1.7, 2.6, 0.5, 0]]
+      : [[0, 2.1, 0, z, 0.6, 0, 0], [0.4, -1.7, 0.1, 5.2, 0.45, 0, 1], [0.74, 0, -1.7, z * 1.3, 0.9, 1, 0], [1, 0, -1.7, z * 1.9, 2.8, 0.5, 0]];
+  }
+  function sample(p) {
+    const k = keyframes();
+    let i = 0;
+    while (i < k.length - 2 && p > k[i + 1][0]) i += 1;
+    const a = k[i];
+    const b = k[i + 1];
+    const t = smooth(Math.min(1, Math.max(0, (p - a[0]) / (b[0] - a[0]))));
+    return a.map((v, j) => mix(v, b[j], t));
+  }
 
   // Mise en scène d'entrée : le sac monte sur son socle pendant que la lumière s'allume.
   const intro = { t: reducedMotion ? 1 : 0 };
@@ -241,6 +292,7 @@ export function initHero(container, { reducedMotion = false } = {}) {
   const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
   io.observe(container);
 
+  const cur = sample(0);
   let last = performance.now();
   let elapsed = 0;
   function frame() {
@@ -253,20 +305,40 @@ export function initHero(container, { reducedMotion = false } = {}) {
       if (intro.t < 1) intro.t = Math.min(1, intro.t + dt / 1.6);
       const ease = 1 - (1 - intro.t) ** 3;
 
+      const target = sample(progress);
+      const damp = reducedMotion ? 1 : 0.07;
+      for (let i = 1; i < cur.length; i += 1) cur[i] += (target[i] - cur[i]) * damp;
+      const [, bx, by, cz, cy, ringAmount, lock] = cur;
+
       if (!dragging) {
         velocity *= 0.94;
         rotation += velocity + (reducedMotion ? 0 : dt * 0.22);
       }
-      pivot.rotation.y = rotation;
+      // Pour le gros plan, le sac se présente de face (fermoir visible), puis reprend sa rotation.
+      const front = Math.round((rotation - 0.38) / (Math.PI * 2)) * Math.PI * 2 + 0.38;
+      pivot.rotation.y = mix(rotation, front, lock);
       pivot.rotation.x += (tilt.x - pivot.rotation.x) * 0.06;
       pivot.position.y = (1 - ease) * -0.6 + (reducedMotion ? 0 : Math.sin(t * 1.2) * 0.04);
+      display.position.set(bx, by, 0);
       key.intensity = 90 * ease;
       rim.intensity = 22 * ease;
-      camera.position.x += (tilt.y * 2 - camera.position.x) * 0.04;
-      camera.lookAt(0, 0.15, 0);
+      camera.position.set(tilt.y * 1.5, cy, cz);
+      camera.lookAt(bx * 0.12, 0.15 + by * 0.15, 0);
 
       leather.color.lerp(targetColor, 0.08);
       leatherDark.color.copy(leather.color).multiplyScalar(0.82);
+
+      // La ronde : rayon adapté à l'écran, chaque photo reste face à la caméra.
+      const radius = aspect < 1 ? 2.5 : 4.3;
+      const spin = t * 0.12 + progress * 4;
+      cards.forEach((card) => {
+        const a = card.userData.angle + spin;
+        card.position.set(bx + Math.sin(a) * radius, by + card.userData.lift, Math.cos(a) * radius * 0.8);
+        card.quaternion.copy(camera.quaternion);
+        const front = 0.55 + 0.45 * ((Math.cos(a) + 1) / 2);
+        card.material.opacity = card.userData.ready ? ringAmount * front : 0;
+        card.visible = card.material.opacity > 0.01;
+      });
 
       if (!reducedMotion) {
         const pos = dust.geometry.attributes.position;
@@ -284,5 +356,5 @@ export function initHero(container, { reducedMotion = false } = {}) {
   }
   requestAnimationFrame(frame);
 
-  return { setColor };
+  return { setColor, setProgress };
 }

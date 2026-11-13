@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KOSBIE — Sacs et chaussures pour femmes</title>
-  <meta name="description" content="KOSBIE, boutique de sacs et de chaussures pour femmes au Bénin. Découvrez la collection et commandez directement sur WhatsApp." />
+  <title>KOSBIE — Sacs pour femmes</title>
+  <meta name="description" content="KOSBIE, boutique de sacs pour femmes au Bénin. Découvrez la collection et commandez directement sur WhatsApp." />
   <meta name="theme-color" content="#17120E" />
-  <meta property="og:title" content="KOSBIE — Sacs et chaussures pour femmes" />
+  <meta property="og:title" content="KOSBIE — Sacs pour femmes" />
   <meta property="og:description" content="Repérez votre modèle, commandez-le sur WhatsApp." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -21,8 +21,8 @@
   <header class="site-header" data-header>
     <a class="wordmark" href="#accueil" aria-label="KOSBIE, retour à l'accueil">KOSBIE</a>
     <nav class="site-nav" aria-label="Navigation principale">
-      <a href="#collection" data-filter-link="sac">Sacs</a>
-      <a href="#collection" data-filter-link="chaussure">Chaussures</a>
+      <a href="#collection" data-filter-link="boutique">En boutique</a>
+      <a href="#collection" data-filter-link="commande">Sur commande</a>
       <a href="#commander">Commander</a>
     </nav>
     <a class="btn btn--line btn--small" data-wa-general target="_blank" rel="noopener">
@@ -32,47 +32,60 @@
   </header>
 
   <main>
-    <section class="hero" id="accueil">
-      <div class="hero__copy">
-        <h1 class="hero__title">
-          <span class="line"><span>Le sac qui vous suit,</span></span>
-          <span class="line"><span>la chaussure</span></span>
-          <span class="line"><span>qui vous porte.</span></span>
-        </h1>
-        <p class="hero__lead">Des sacs et des chaussures pour femmes, choisis un par un. Repérez votre modèle ici, commandez-le en un message sur WhatsApp.</p>
-        <div class="hero__actions">
-          <a class="btn btn--gold" href="#collection">Voir la collection</a>
-          <a class="btn btn--ghost" data-wa-general target="_blank" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
-            Écrire à la boutique
-          </a>
-        </div>
-      </div>
-
-      <div class="hero__stage">
-        <div class="stage" data-stage aria-label="Sac à main en 3D. Faites glisser pour le tourner." role="img"></div>
+    <section class="voyage" id="accueil" data-voyage>
+      <div class="voyage__sticky">
+        <div class="stage" data-stage aria-label="Sac à main en 3D. Faites glisser pour le tourner, faites défiler pour avancer." role="img"></div>
         <div class="stage__fallback" data-stage-fallback hidden></div>
-        <div class="tints" role="radiogroup" aria-label="Teinte du cuir">
-          <span class="tints__label">Teinte <strong data-tint-name>Caramel</strong></span>
-          <div class="tints__list">
-            <button class="tint" role="radio" aria-checked="true" aria-label="Caramel" data-tint="#A8743F" data-name="Caramel" style="--c:#A8743F"></button>
-            <button class="tint" role="radio" aria-checked="false" aria-label="Noir" data-tint="#26201C" data-name="Noir" style="--c:#26201C"></button>
-            <button class="tint" role="radio" aria-checked="false" aria-label="Poudre" data-tint="#D9AFA2" data-name="Poudre" style="--c:#D9AFA2"></button>
-            <button class="tint" role="radio" aria-checked="false" aria-label="Bordeaux" data-tint="#6E2232" data-name="Bordeaux" style="--c:#6E2232"></button>
+
+        <div class="beat beat--intro" data-beat data-from="-1" data-to="0.2">
+          <h1 class="hero__title">
+            <span class="line"><span>Le sac qui vous suit,</span></span>
+            <span class="line"><span>partout où la vie</span></span>
+            <span class="line"><span>vous emmène.</span></span>
+          </h1>
+          <p class="hero__lead">KOSBIE choisit ses sacs un par un. Repérez le vôtre ici, commandez-le en un message sur WhatsApp.</p>
+          <div class="hero__actions">
+            <a class="btn btn--gold" href="#collection">Voir la collection</a>
+            <a class="btn btn--ghost" data-wa-general target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
+              Écrire à la boutique
+            </a>
           </div>
-          <span class="tints__hint">Glissez pour tourner le sac</span>
+          <div class="tints" role="radiogroup" aria-label="Teinte du cuir">
+            <span class="tints__label">Teinte <strong data-tint-name>Caramel</strong></span>
+            <div class="tints__list">
+              <button class="tint" role="radio" aria-checked="true" aria-label="Caramel" data-tint="#A8743F" data-name="Caramel" style="--c:#A8743F"></button>
+              <button class="tint" role="radio" aria-checked="false" aria-label="Noir" data-tint="#26201C" data-name="Noir" style="--c:#26201C"></button>
+              <button class="tint" role="radio" aria-checked="false" aria-label="Poudre" data-tint="#D9AFA2" data-name="Poudre" style="--c:#D9AFA2"></button>
+              <button class="tint" role="radio" aria-checked="false" aria-label="Bordeaux" data-tint="#6E2232" data-name="Bordeaux" style="--c:#6E2232"></button>
+            </div>
+          </div>
         </div>
+
+        <div class="beat beat--detail" data-beat data-from="0.3" data-to="0.52">
+          <h2 class="beat__title">Regardez de près.</h2>
+          <p class="beat__text">Un fermoir qui tient, des coutures nettes, une anse qui ne lâche pas. Chaque modèle est vérifié avant d’entrer en boutique.</p>
+        </div>
+
+        <div class="beat beat--ring" data-beat data-from="0.62" data-to="2">
+          <h2 class="beat__title"><span data-count-total></span> modèles en ce moment.</h2>
+          <p class="beat__text">Des sacs disponibles en boutique et des modèles sur commande, dans les coloris retenus par la maison.</p>
+          <a class="btn btn--gold" href="#collection">Voir la collection</a>
+        </div>
+
+        <p class="voyage__hint" data-hint aria-hidden="true"><span></span>Faites défiler</p>
       </div>
     </section>
 
     <section class="collection" id="collection" aria-labelledby="collection-title">
       <div class="collection__head">
         <h2 id="collection-title" class="section-title">La collection</h2>
-        <p class="collection__intro">Touchez un article pour voir ses couleurs et ses pointures, puis envoyez votre choix à la boutique sur WhatsApp.</p>
+        <p class="collection__intro">Touchez un sac pour voir ses coloris, puis envoyez votre choix à la boutique sur WhatsApp.</p>
         <div class="filters" role="group" aria-label="Filtrer la collection">
           <button class="filter" aria-pressed="true" data-filter="tout">Tout <span data-count="tout"></span></button>
-          <button class="filter" aria-pressed="false" data-filter="sac">Sacs <span data-count="sac"></span></button>
-          <button class="filter" aria-pressed="false" data-filter="chaussure">Chaussures <span data-count="chaussure"></span></button>
+          <button class="filter" aria-pressed="false" data-filter="boutique">En boutique <span data-count="boutique"></span></button>
+          <button class="filter" aria-pressed="false" data-filter="commande">Sur commande <span data-count="commande"></span></button>
+          <button class="filter" aria-pressed="false" data-filter="chaussure" hidden>Chaussures <span data-count="chaussure"></span></button>
         </div>
       </div>
       <ul class="grid" data-grid></ul>
@@ -84,17 +97,17 @@
         <li>
           <span class="steps__num" aria-hidden="true">1</span>
           <h3>Choisissez</h3>
-          <p>Ouvrez un article, sélectionnez la couleur et, pour les chaussures, votre pointure.</p>
+          <p>Ouvrez un sac et sélectionnez le coloris qui vous plaît.</p>
         </li>
         <li>
           <span class="steps__num" aria-hidden="true">2</span>
           <h3>Envoyez</h3>
-          <p>Le bouton WhatsApp prépare le message avec le modèle, le prix et vos choix. Il ne reste qu’à l’envoyer.</p>
+          <p>Le bouton WhatsApp prépare le message avec le modèle, sa référence et votre coloris. Il ne reste qu’à l’envoyer.</p>
         </li>
         <li>
           <span class="steps__num" aria-hidden="true">3</span>
           <h3>Recevez</h3>
-          <p>La boutique vous confirme la disponibilité, puis vous convenez ensemble du retrait ou de la livraison.</p>
+          <p>La boutique vous donne le prix et la disponibilité, puis vous convenez ensemble du retrait ou de la livraison.</p>
         </li>
       </ol>
       <a class="btn btn--gold" data-wa-general target="_blank" rel="noopener">
@@ -106,7 +119,7 @@
 
   <footer class="site-footer">
     <p class="site-footer__mark">KOSBIE</p>
-    <p>Sacs et chaussures pour femmes, <span data-city></span></p>
+    <p>Sacs pour femmes, <span data-city></span></p>
     <p><a data-wa-general target="_blank" rel="noopener" data-wa-display></a></p>
     <p class="site-footer__small">© <span data-year></span> KOSBIE</p>
   </footer>
@@ -127,6 +140,8 @@
       <h2 class="sheet__title" id="sheet-title" data-sheet-title></h2>
       <p class="sheet__price" data-sheet-price></p>
       <p class="sheet__desc" data-sheet-desc></p>
+      <p class="sheet__specs" data-sheet-specs></p>
+      <p class="sheet__notice" data-sheet-note hidden></p>
       <fieldset class="choice" data-sheet-colors-wrap>
         <legend>Couleur <strong data-sheet-color-name></strong></legend>
         <div class="choice__row" data-sheet-colors></div>
