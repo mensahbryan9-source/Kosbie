@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOSBIE — Sacs et chaussures pour femmes</title>
+  <meta name="description" content="KOSBIE, boutique de sacs et de chaussures pour femmes au Bénin. Découvrez la collection et commandez directement sur WhatsApp." />
+  <meta name="theme-color" content="#17120E" />
+  <meta property="og:title" content="KOSBIE — Sacs et chaussures pour femmes" />
+  <meta property="og:description" content="Repérez votre modèle, commandez-le sur WhatsApp." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Jost:wght@300..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <a class="skip" href="#collection">Aller à la collection</a>
+
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#accueil" aria-label="KOSBIE, retour à l'accueil">KOSBIE</a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="#collection" data-filter-link="sac">Sacs</a>
+      <a href="#collection" data-filter-link="chaussure">Chaussures</a>
+      <a href="#commander">Commander</a>
+    </nav>
+    <a class="btn btn--line btn--small" data-wa-general target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero__copy">
+        <h1 class="hero__title">
+          <span class="line"><span>Le sac qui vous suit,</span></span>
+          <span class="line"><span>la chaussure</span></span>
+          <span class="line"><span>qui vous porte.</span></span>
+        </h1>
+        <p class="hero__lead">Des sacs et des chaussures pour femmes, choisis un par un. Repérez votre modèle ici, commandez-le en un message sur WhatsApp.</p>
+        <div class="hero__actions">
+          <a class="btn btn--gold" href="#collection">Voir la collection</a>
+          <a class="btn btn--ghost" data-wa-general target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
+            Écrire à la boutique
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__stage">
+        <div class="stage" data-stage aria-label="Sac à main en 3D. Faites glisser pour le tourner." role="img"></div>
+        <div class="stage__fallback" data-stage-fallback hidden></div>
+        <div class="tints" role="radiogroup" aria-label="Teinte du cuir">
+          <span class="tints__label">Teinte <strong data-tint-name>Caramel</strong></span>
+          <div class="tints__list">
+            <button class="tint" role="radio" aria-checked="true" aria-label="Caramel" data-tint="#A8743F" data-name="Caramel" style="--c:#A8743F"></button>
+            <button class="tint" role="radio" aria-checked="false" aria-label="Noir" data-tint="#26201C" data-name="Noir" style="--c:#26201C"></button>
+            <button class="tint" role="radio" aria-checked="false" aria-label="Poudre" data-tint="#D9AFA2" data-name="Poudre" style="--c:#D9AFA2"></button>
+            <button class="tint" role="radio" aria-checked="false" aria-label="Bordeaux" data-tint="#6E2232" data-name="Bordeaux" style="--c:#6E2232"></button>
+          </div>
+          <span class="tints__hint">Glissez pour tourner le sac</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="collection" id="collection" aria-labelledby="collection-title">
+      <div class="collection__head">
+        <h2 id="collection-title" class="section-title">La collection</h2>
+        <p class="collection__intro">Touchez un article pour voir ses couleurs et ses pointures, puis envoyez votre choix à la boutique sur WhatsApp.</p>
+        <div class="filters" role="group" aria-label="Filtrer la collection">
+          <button class="filter" aria-pressed="true" data-filter="tout">Tout <span data-count="tout"></span></button>
+          <button class="filter" aria-pressed="false" data-filter="sac">Sacs <span data-count="sac"></span></button>
+          <button class="filter" aria-pressed="false" data-filter="chaussure">Chaussures <span data-count="chaussure"></span></button>
+        </div>
+      </div>
+      <ul class="grid" data-grid></ul>
+    </section>
+
+    <section class="order" id="commander" aria-labelledby="order-title">
+      <h2 id="order-title" class="section-title">Commander en trois messages</h2>
+      <ol class="steps">
+        <li>
+          <span class="steps__num" aria-hidden="true">1</span>
+          <h3>Choisissez</h3>
+          <p>Ouvrez un article, sélectionnez la couleur et, pour les chaussures, votre pointure.</p>
+        </li>
+        <li>
+          <span class="steps__num" aria-hidden="true">2</span>
+          <h3>Envoyez</h3>
+          <p>Le bouton WhatsApp prépare le message avec le modèle, le prix et vos choix. Il ne reste qu’à l’envoyer.</p>
+        </li>
+        <li>
+          <span class="steps__num" aria-hidden="true">3</span>
+          <h3>Recevez</h3>
+          <p>La boutique vous confirme la disponibilité, puis vous convenez ensemble du retrait ou de la livraison.</p>
+        </li>
+      </ol>
+      <a class="btn btn--gold" data-wa-general target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
+        Écrire à KOSBIE
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="site-footer__mark">KOSBIE</p>
+    <p>Sacs et chaussures pour femmes, <span data-city></span></p>
+    <p><a data-wa-general target="_blank" rel="noopener" data-wa-display></a></p>
+    <p class="site-footer__small">© <span data-year></span> KOSBIE</p>
+  </footer>
+
+  <a class="wa-float" data-wa-general target="_blank" rel="noopener" aria-label="Écrire à KOSBIE sur WhatsApp">
+    <svg aria-hidden="true"><use href="#i-wa"/></svg>
+  </a>
+
+  <dialog class="sheet" data-sheet aria-labelledby="sheet-title">
+    <form method="dialog" class="sheet__close-form">
+      <button class="sheet__close" aria-label="Fermer">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      </button>
+    </form>
+    <div class="sheet__media" data-sheet-media></div>
+    <div class="sheet__body">
+      <p class="sheet__cat" data-sheet-cat></p>
+      <h2 class="sheet__title" id="sheet-title" data-sheet-title></h2>
+      <p class="sheet__price" data-sheet-price></p>
+      <p class="sheet__desc" data-sheet-desc></p>
+      <fieldset class="choice" data-sheet-colors-wrap>
+        <legend>Couleur <strong data-sheet-color-name></strong></legend>
+        <div class="choice__row" data-sheet-colors></div>
+      </fieldset>
+      <fieldset class="choice" data-sheet-sizes-wrap>
+        <legend>Pointure <strong data-sheet-size-name>à choisir</strong></legend>
+        <div class="choice__row" data-sheet-sizes></div>
+      </fieldset>
+      <a class="btn btn--gold btn--block" data-sheet-wa target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
+        Commander sur WhatsApp
+      </a>
+      <p class="sheet__note">Le message est prérempli. Vous pouvez le modifier avant de l’envoyer.</p>
+    </div>
+  </dialog>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/>
+    </symbol>
+  </svg>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
